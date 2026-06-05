@@ -1,0 +1,4 @@
+Overlapping regions equal to and more than 50% Gene3D vs Iupred2a: 4435
+Overlapping regions less than 50% Gene3D vs Iupred2a: 3854
+Overlapping regions equal to and more than 50% Gene3D vs AIUpred: 6215
+Overlapping regions less than 50% Gene3D vs AIUpred: 5431

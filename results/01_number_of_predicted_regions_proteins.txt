@@ -1,0 +1,4 @@
+Number of disordered regions predicted by Iupred2a: 10027
+Number of disordered regions predicted by Aiupred: 13888
+Number of proteins containing disordered regions predicted by Iupred2a: 5562
+Number of proteins containing disordered regions predicted by Aiupred: 8341

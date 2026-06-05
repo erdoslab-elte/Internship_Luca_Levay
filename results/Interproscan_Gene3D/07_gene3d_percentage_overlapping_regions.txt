@@ -1,0 +1,4 @@
+Iupred2a: 44.23057744090955% of the found disordered regions overlaps (equal to/)more than 50% with the annotated domains
+Iupred2a: 38.43622220005984% of the found disordered regions overlaps less than 50% with the annotated domains
+Aiupred: 44.75086405529954% of the found disordered regions overlaps (equal to/)more than 50% with the annotated domains
+Aiupred: 39.105702764976954% of the found disordered regions overlaps less than 50% with the annotated domains
