@@ -1,0 +1,2 @@
+Number of found proteins annotated by Gene3D that contains domains that overlap more than 50% with disordered regions predicted by Iupred2a: 2833
+Number of found proteins annotated by Gene3D that contains domains that overlap more than 50% with disordered regions predicted by Aiupred: 4410
