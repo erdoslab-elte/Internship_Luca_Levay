@@ -1,0 +1,2 @@
+Number of found domains annotated by Pfam that overlaps more than 50% with disordered regions predicted by Iupred2a: 3191
+Number of found domains annotated by Pfam that overlaps more than 50% with disordered regions predicted by Aiupred: 5069
