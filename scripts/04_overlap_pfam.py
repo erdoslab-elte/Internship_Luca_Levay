@@ -68,6 +68,7 @@ for aiup_index,aiup_row in Aiupred_tsv.iterrows():
         aiupred_data[aiup_acc] = []
     aiupred_data[aiup_acc].append(aiup_region)
 
+##Iupred2a
 #Create a counter for the overlapping regions
 
 iup_overlap_above= 0
@@ -81,29 +82,39 @@ for acc, regions in iupred_data.items():
         k += len(regions)
         continue
     for iupred_region in regions:
-        does_overlap = False
+        overlap_above = False
+        has_overlap= False
+        found_overlap_region= None
+        found_domain= None
         iup_region_length = iupred_region[1] - iupred_region[0] + 1
         for pfam_values in pfam_data[acc]:      #pfam_data[acc] refers to the list of regions that belongs to a certain accession number 
             pfam_region= pfam_values["region"]
             pfam_domain= pfam_values["domain"]
-            overlap_result = overlap(pfam_region, iupred_region)
+            overlap_result = overlap(pfam_region, iupred_region)  
             if overlap_result[1] != 0:
+                has_overlap=True
+                if found_overlap_region is None:
+                    found_overlap_region = overlap_result[0]
+                    found_domain= pfam_domain
                 overlap_ratio= overlap_result[1]/ iup_region_length
 #                 print("Overlapping regions:" acc , overlap_result)
 #                 print(overlap_ratio)
 #                 Counting the overlapping regions,and collect them in separate files based on the overlap ratio
                 if overlap_ratio >= 0.5:
                     #print(f'{acc} PFAM: {pfam_region}, IUP: {iupred_region} overlaps more than 50%')
-                    does_overlap= True
+                    overlap_above= True
                     iup_overlap_above +=1
                     #print(acc,overlap_result[0],pfam_domain)    
                     iup_overlap_above_file.write(f"{acc}\t{overlap_result[0]}\t{pfam_domain}\n")
                     break
-        if not does_overlap:
+        if not overlap_above:
             iup_overlap_below +=1
-            iup_overlap_below_file.write(f"{acc}\t{overlap_result[0]}\t{pfam_domain}\n")
-  
-               
+            if has_overlap:
+                iup_overlap_below_file.write(f"{acc}\t{found_overlap_region}\t{found_domain}\n")
+            else:
+                 iup_overlap_below_file.write(f"{acc}\t{iupred_region}\tNo_PFAM_overlap\n")
+           
+      
 # print(f'{iup_overlap_above} regions overlap more than 50%')
 # print(f'{iup_overlap_below} region overlap less than 50%')
 # print(f'{k} region dont have PFAM at all')
@@ -112,6 +123,7 @@ for acc, regions in iupred_data.items():
 iup_overlap_above_file.close()
 iup_overlap_below_file.close()
 
+##Aiup
 #Create a counter for the overlapping regions
 
 aiup_overlap_above= 0
@@ -125,27 +137,38 @@ for acc, regions in aiupred_data.items():
         m += len(regions)
         continue
     for aiupred_region in regions:
-        does_overlap = False
+        overlap_above = False
+        has_overlap= False
+        found_overlap_region= None
+        found_domain= None
         aiup_region_length = aiupred_region[1] - aiupred_region[0] + 1
         for pfam_values in pfam_data[acc]:      #pfam_data[acc] refers to the list of regions that belongs to a certain accession number 
             pfam_region= pfam_values["region"]
             pfam_domain= pfam_values["domain"]
             overlap_result = overlap(pfam_region, aiupred_region)
             if overlap_result[1] != 0:
+                has_overlap=True
+                if found_overlap_region is None:
+                    found_overlap_region = overlap_result[0]
+                    found_domain= pfam_domain
                 overlap_ratio= overlap_result[1]/ aiup_region_length
 #                 print("Overlapping regions:"acc , overlap_result)
 #                 print(overlap_ratio)
 #                 Counting the overlapping regions,and collect them in separate files based on the overlap ratio
                 if overlap_ratio >= 0.5:
                     #print(f'{acc} PFAM: {pfam_region}, AIUP: {aiupred_region} overlaps more than 50%')
-                    does_overlap= True
+                    overlap_above= True
                     aiup_overlap_above +=1
                     #print(acc,overlap_result[0],pfam_domain)
                     aiup_overlap_above_file.write(f"{acc}\t{overlap_result[0]}\t{pfam_domain}\n")
                     break
-        if not does_overlap:
+        if not overlap_above:
             aiup_overlap_below +=1
-            aiup_overlap_below_file.write(f"{acc}\t{overlap_result[0]}\t{pfam_domain}\n")
+            if has_overlap:
+                print(acc, found_overlap_region, found_domain)
+                aiup_overlap_below_file.write(f"{acc}\t{found_overlap_region}\t{found_domain}\n")
+            else:
+                 aiup_overlap_below_file.write(f"{acc}\t{aiupred_region}\tNo_PFAM_overlap\n")
                  
 # print(f'{aiup_overlap_above} regions overlap more than 50%')
 # print(f'{aiup_overlap_below} region overlap less than 50%')
