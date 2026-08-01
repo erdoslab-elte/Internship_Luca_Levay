@@ -1,4 +1,4 @@
-#Analyzing the distirbuiton of the lengths of the predicted redox sensitive disordered segments
+#Analyzing the distirbuiton of the lengths of the predicted redox sensitive disordered regions
 #Pfam
 import pandas as pd
 import ast
