@@ -104,12 +104,12 @@ for acc, regions in iupred_data.items():
                     overlap_above= True
                     iup_overlap_above +=1
                     #print(acc,overlap_result[0],gene3d_domain)    
-                    iup_overlap_above_file.write(f"{acc}\t{overlap_result[0]}\t{gene3d_domain}\n")
+                    iup_overlap_above_file.write(f"{acc}\t{iupred_region}\t{gene3d_domain}\n")
                     break
         if not overlap_above:
             iup_overlap_below +=1
             if has_overlap:
-                iup_overlap_below_file.write(f"{acc}\t{found_overlap_region}\t{found_domain}\n")
+                iup_overlap_below_file.write(f"{acc}\t{iupred_region}\t{found_domain}\n")
             else:
                  iup_overlap_below_file.write(f"{acc}\t{iupred_region}\tNo_Gene3D_overlap\n")
          
@@ -157,12 +157,12 @@ for acc, regions in aiupred_data.items():
                     overlap_above= True
                     aiup_overlap_above +=1
                     #print(acc,overlap_result[0],gene3d_domain)
-                    aiup_overlap_above_file.write(f"{acc}\t{overlap_result[0]}\t{gene3d_domain}\n")
+                    aiup_overlap_above_file.write(f"{acc}\t{aiupred_region}\t{gene3d_domain}\n")
                     break
         if not overlap_above:
             aiup_overlap_below +=1
             if has_overlap:
-                aiup_overlap_below_file.write(f"{acc}\t{found_overlap_region}\t{found_domain}\n")
+                aiup_overlap_below_file.write(f"{acc}\t{aiupred_region}\t{found_domain}\n")
             else:
                  aiup_overlap_below_file.write(f"{acc}\t{aiupred_region}\tNo_Gene3D_overlap\n")
             
@@ -178,5 +178,7 @@ aiup_overlap_below_file.close()
 with open("/home/guest/Internship/results/Interproscan_Gene3D/05_gene3d_summary_number_of_overlapping_regions.txt","w") as file:
     file.write("Overlapping regions equal to and more than 50% Gene3D vs Iupred2a: {0}\n".format(iup_overlap_above))
     file.write("Overlapping regions less than 50% Gene3D vs Iupred2a: {0}\n".format(iup_overlap_below))
+    file.write("Regions that doesen't overlap at all Gene3D vs Iupred2a: {0}\n".format(k))
     file.write("Overlapping regions equal to and more than 50% Gene3D vs AIUpred: {0}\n".format(aiup_overlap_above))
     file.write("Overlapping regions less than 50% Gene3D vs AIUpred: {0}\n".format(aiup_overlap_below))
+    file.write("Regions that doesen't overlap at all Gene3D vs Iupred2a: {0}\n".format(m))

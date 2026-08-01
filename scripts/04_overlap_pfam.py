@@ -9,6 +9,17 @@ def overlap(x, y):
     overlap_region = [overlap_start, overlap_end]
     return overlap_region,overlap_length
 
+#Creating dictionary with accession numbers and predicted disordered regions:
+def create_dict(file):
+    dict={}
+    for _,row in file.iterrows():
+        acc=row["accession"]
+        region=[row["start"],row["end"]]
+        if acc not in dict:
+            dict[acc]= []
+        dict[acc].append(region)
+    return dict
+
 #Read the Pfam tsv file
 Pfam_tsv = pd.read_csv("/home/guest/Internship/results/Interproscan_Pfam/02_pfam_filtered_UP000005640_9606.fasta.tsv",sep="\t")
 
@@ -34,9 +45,9 @@ aiup_overlap_below_file=open("/home/guest/Internship/results/Interproscan_Pfam/0
 aiup_overlap_above_file.write("Accession_number\tRegion\tDomain\n")
 aiup_overlap_below_file.write("Accession_number\tRegion\tDomain\n")
 
-
 #Create a dictionary for annotated regions: key: accession number, value: list of regions
-pfam_data = {}
+
+pfam_data={}
 
 for pfam_index,pfam_row in Pfam_tsv.iterrows():
     pfam_acc=pfam_row["accession"]
@@ -48,25 +59,9 @@ for pfam_index,pfam_row in Pfam_tsv.iterrows():
         "region":pfam_region,
         "domain":pfam_domain})
 
-#Create a dictionary for predicted regions by Iupred2a: key: accesion number, value:list of regions
-iupred_data = {}
-for iup_index,iup_row in Iupred_tsv.iterrows():
-    iup_acc=iup_row["accession"]
-    iup_region=[iup_row["start"],iup_row["end"]]
-    #iup_region_length = iup_row["end"] - iup_row["start"] + 1
-    if iup_acc not in iupred_data:
-        iupred_data[iup_acc] = []
-    iupred_data[iup_acc].append(iup_region)
-
-#Create a dictionary for predicted regions by Aiupred: key: accesion number, value:list of regions
-aiupred_data = {}
-for aiup_index,aiup_row in Aiupred_tsv.iterrows():
-    aiup_acc=aiup_row["accession"]
-    aiup_region=[aiup_row["start"],aiup_row["end"]]
-    #aiup_region_length = aiup_row["end"] - aiup_row["start"] + 1
-    if aiup_acc not in aiupred_data:
-        aiupred_data[aiup_acc] = []
-    aiupred_data[aiup_acc].append(aiup_region)
+#Create a dictionary for predicted regions by Iupred2a and by Aiupred: key: accesion number, value:list of regions
+iupred_data=create_dict(Iupred_tsv)
+aiupred_data=create_dict(Aiupred_tsv)
 
 ##Iupred2a
 #Create a counter for the overlapping regions
@@ -105,12 +100,12 @@ for acc, regions in iupred_data.items():
                     overlap_above= True
                     iup_overlap_above +=1
                     #print(acc,overlap_result[0],pfam_domain)    
-                    iup_overlap_above_file.write(f"{acc}\t{overlap_result[0]}\t{pfam_domain}\n")
+                    iup_overlap_above_file.write(f"{acc}\t{iupred_region}\t{pfam_domain}\n")
                     break
         if not overlap_above:
             iup_overlap_below +=1
             if has_overlap:
-                iup_overlap_below_file.write(f"{acc}\t{found_overlap_region}\t{found_domain}\n")
+                iup_overlap_below_file.write(f"{acc}\t{iupred_region}\t{found_domain}\n")
             else:
                  iup_overlap_below_file.write(f"{acc}\t{iupred_region}\tNo_PFAM_overlap\n")
            
@@ -160,13 +155,13 @@ for acc, regions in aiupred_data.items():
                     overlap_above= True
                     aiup_overlap_above +=1
                     #print(acc,overlap_result[0],pfam_domain)
-                    aiup_overlap_above_file.write(f"{acc}\t{overlap_result[0]}\t{pfam_domain}\n")
+                    aiup_overlap_above_file.write(f"{acc}\t{aiupred_region}\t{pfam_domain}\n")
                     break
         if not overlap_above:
             aiup_overlap_below +=1
             if has_overlap:
-                print(acc, found_overlap_region, found_domain)
-                aiup_overlap_below_file.write(f"{acc}\t{found_overlap_region}\t{found_domain}\n")
+                #print(acc, found_overlap_region, found_domain)
+                aiup_overlap_below_file.write(f"{acc}\t{aiupred_region}\t{found_domain}\n")
             else:
                  aiup_overlap_below_file.write(f"{acc}\t{aiupred_region}\tNo_PFAM_overlap\n")
                  
@@ -182,5 +177,8 @@ aiup_overlap_below_file.close()
 with open("/home/guest/Internship/results/Interproscan_Pfam/04_pfam_summary_number_of_overlapping_regions.txt","w") as file:
     file.write("Overlapping regions equal to and more than 50% Pfam vs Iupred2a: {0}\n".format(iup_overlap_above))
     file.write("Overlapping regions less than 50% Pfam vs Iupred2a: {0}\n".format(iup_overlap_below))
+    file.write("Regions that doesen't overlap at all Pfam vs Iupred2a: {0}\n".format(k))
     file.write("Overlapping regions equal to and more than 50% Pfam vs AIUpred: {0}\n".format(aiup_overlap_above))
     file.write("Overlapping regions less than 50% Pfam vs AIUpred: {0}\n".format(aiup_overlap_below))
+    file.write("Regions that doesen't overlap at all Pfam vs AIUpred: {0}\n".format(m))
+
