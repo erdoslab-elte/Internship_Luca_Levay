@@ -1,4 +1,4 @@
-#Counting how many percentage of the found disordered regions overlaps more than 50% with the annoteted domains
+#Counting how many percentage of the found disordered regions overlaps more than 50% with the annotated domains
 #Pfam
 
 import pandas as pd

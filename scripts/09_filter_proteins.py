@@ -27,7 +27,7 @@ pfam_filtered_iup_overlap_file.to_csv("~/Internship/results/Interproscan_Pfam/09
 pfam_filtered_aiup_overlap_file.to_csv("~/Internship/results/Interproscan_Pfam/09_pfam_aiupred_found_proteins.tsv",sep="\t",index=False)
 #Gene3D
 gene3d_filtered_iup_overlap_file.to_csv("~/Internship/results/Interproscan_Gene3D/09_gene3d_iupred_found_proteins.tsv", sep="\t", index=False)
-gene3d_filtered_iup_overlap_file.to_csv("~/Internship/results/Interproscan_Gene3D/09_gene3d_aiupred_found_proteins.tsv", sep="\t", index=False)
+gene3d_filtered_aiup_overlap_file.to_csv("~/Internship/results/Interproscan_Gene3D/09_gene3d_aiupred_found_proteins.tsv", sep="\t", index=False)
 
 #Counting how many proteins are found
 #info:proteins that contains domains which overlaps more than 50% with the disordered regions predicted by Iupred and AIUpred
