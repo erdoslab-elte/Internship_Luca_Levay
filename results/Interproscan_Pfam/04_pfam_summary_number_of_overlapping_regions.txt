@@ -1,4 +1,6 @@
 Overlapping regions equal to and more than 50% Pfam vs Iupred2a: 4123
 Overlapping regions less than 50% Pfam vs Iupred2a: 5471
+Regions that doesen't overlap at all Pfam vs Iupred2a: 433
 Overlapping regions equal to and more than 50% Pfam vs AIUpred: 6012
 Overlapping regions less than 50% Pfam vs AIUpred: 7432
+Regions that doesen't overlap at all Pfam vs AIUpred: 444
