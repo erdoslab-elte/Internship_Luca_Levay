@@ -1,6 +1,4 @@
-# Filter the annotated human proteome, so it only contains the acession number and the
-#start and end position of the domains
-
+# Filter the annotated human proteome, so it only contains the acession number, the, start and end position of the domains, and the domain names
 #Pfam file
 
 import pandas as pd
