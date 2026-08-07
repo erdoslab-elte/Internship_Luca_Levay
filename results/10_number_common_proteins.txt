@@ -1,0 +1,3 @@
+Number of proteins found only by Iupred2a: 919
+Number of proteins found only by Aiupred: 3698
+Number of common proteins found both with Iupred2a and Aiupred: 4643
