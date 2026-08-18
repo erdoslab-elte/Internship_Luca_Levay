@@ -1,5 +1,5 @@
 #Increasing the cut off that Aiupred uses for predicting disordered regions
-#What I modified: only the 0.5 value: increased it (by 20%) to 0.6
+#What I modified: only the 0.3 value: increased it (by 20%) to 0.4/0.5/0.6/0.7
 #I didn't modify the difference between them also not the values at the expanding part
 
 import pandas as pd
@@ -32,7 +32,7 @@ def aiupred_score(seq):
 def aiupred_redox_score(seq):
     return aiupred_score(seq.replace("C", "S"))
 
-#Modification of get_redox_regions function: increase the cut off vlaue from 0.5 to 0.6
+#Modification of get_redox_regions function: increase the cut off value from 0.3 to 0.4
 def get_redox_regions(redox_values, iupred_values):
     """
     Calculate the redox sensitive regions
@@ -47,7 +47,7 @@ def get_redox_regions(redox_values, iupred_values):
     counter = 0
     # Calculate possible position
     for idx, redox_val in enumerate(redox_values):
-        if redox_val > 0.5 > iupred_values[idx] and redox_val - iupred_values[idx] > 0.4:
+        if redox_val > 0.5 > iupred_values[idx] and redox_val - iupred_values[idx] > 0.7:
             opening_pos.append(idx)
     # Filter out where not enough possible position is found
     # Enlarge region where enough position is found
@@ -91,7 +91,7 @@ with open("/home/guest/Internship/results/01_aiupred_disordered_regions.tsv") as
             aiup_acc_list.append(acc)
 
 #Creating a new file for the results:
-result_file=open("/home/guest/Internship/results/16_aiupred_modified_disordered_regions.tsv","w")
+result_file=open("/home/guest/Internship/results/17_modified_cutoff_07_disordered_regions.tsv","w")
 result_file.write("Accession_number\tStart\tEnd\n")
 
 #Adding data to the result file:
@@ -114,8 +114,8 @@ for human_acc,seq in human_file.items():
 result_file.close()
 
 #Creating a txt file for the number of predicted disordered regions by Aiupred:
-with open("/home/guest/Internship/results/16_aiupred_modified_number_disordered_regions.txt","w") as file:
-    file.write(f"Number of disordered regions predicted by Aiupred with the modified cut-off value: {number_of_regions}")
+with open("/home/guest/Internship/results/17_modified_cutoff_07_number_disordered_regions.txt","w") as file:
+    file.write(f"Number of disordered regions predicted by Aiupred with the modified cut-off value 0.7: {number_of_regions}")
 
 print(number_of_regions)
 
