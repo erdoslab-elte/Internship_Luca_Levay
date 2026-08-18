@@ -1,5 +1,5 @@
-#Calculation of redox-state dependent disorder prediction scores for the domain and non-domain segments identified by Iupred2a
-#Comparing the distribution of the prediction scores between domain and non-domain segments
+#Calculation of redox-state dependent disorder prediction scores for the domain and non-domain regions identified by Iupred2a
+#Comparing the distribution of the prediction scores between domain and non-domain regions
 
 from aiupred import AIUPred
 import pandas as pd
@@ -60,14 +60,14 @@ def create_id_dict(fasta_file,acc_list):
 #Read in the multifasta file (with the defined multifasta function)
 fasta_data = multi_fasta_reader('/home/guest/Internship/data/UP000005640_9606.fasta')
 
-#Read in the Aiupred predicted segment files:
-##Domains: segments that overlap more than 50% iwth annotated domains
+#Read in the Aiupred predicted region files:
+##Domains: regions that overlap more than 50% with annotated domains
 aiup_domain_file=pd.read_csv("/home/guest/Internship/results/Interproscan_Pfam/04_pfam_aiupred_overlap_above_50.tsv",sep="\t")
 
-##Non-domains/Segments:called here segments: segments that overlap less than 50% with annotated domains:
+##Non-domains/Segments:called here segments: regions that overlap less than 50% with annotated domains:
 aiup_segment_file=pd.read_csv("/home/guest/Internship/results/Interproscan_Pfam/04_pfam_aiupred_overlap_below_50.tsv",sep="\t")
 
-#Create a list of the accesion numbers of the predicted redox-state dependent disordered segments by Aiupred:
+#Create a list of the accesion numbers of the predicted redox-state dependent disordered regions by Aiupred:
 aiup_domain_list=create_acc_list_dict(aiup_domain_file)[0]
 aiup_segment_list=create_acc_list_dict(aiup_segment_file)[0]
 
@@ -75,7 +75,7 @@ aiup_segment_list=create_acc_list_dict(aiup_segment_file)[0]
 aiup_above_dict = create_acc_list_dict(aiup_domain_file)[1]
 aiup_below_dict=create_acc_list_dict(aiup_segment_file)[1]
 
-#Save the predicted redox sensitive segments' sequences in a dictionary
+#Save the predicted redox sensitive regions' sequences in a dictionary
 aiup_domain_found_ids=create_id_dict(fasta_data,aiup_domain_list)
 aiup_segment_found_ids=create_id_dict(fasta_data,aiup_segment_list)
 
