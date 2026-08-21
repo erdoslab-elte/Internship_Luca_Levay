@@ -1,0 +1,12 @@
+Retrieved 48340 GO terms from /home/guest/Internship/data/go-basic.obo 
+
+Adding secondary GO identifiers...
+
+Retrieved 19775 annotated Uniprot AC's from /home/guest/Internship/data/HUMAN-uniprot.gaf
+
+Retrieved 1363 annotated (background filtered) Uniprot AC's from /home/guest/Internship/data/HUMAN-uniprot.gaf
+
+Tested 4809 GO categories for enrichment.
+
+407 were significant at (uncorrected) alpha = 0.05 
+
