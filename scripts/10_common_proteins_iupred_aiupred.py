@@ -52,20 +52,24 @@ with open("/home/guest/Internship/results/10_number_common_proteins.txt","w") as
 
 #Creating a tsv file for the 3 categories of the found proteins:
 df = pd.DataFrame({
-    "Common proteins": pd.Series(common_acc_list),
     "Only by Iupred2a": pd.Series(only_iupred_list),
+    "Common proteins": pd.Series(common_acc_list),
     "Only by Aiupred": pd.Series(only_aiupred_list),
 })
 
 df.to_csv("/home/guest/Internship/results/10_common_found_proteins.tsv", sep="\t", index=False)
 
-proteins= [c,oi,oai]
-categories=['Common proteins','Only by Iupred2a', 'Only by Aiupred']
-
 #Creating a summary barplot:
-plt.bar(categories,proteins)
+proteins= [oi,c,oai]
+categories=['Only by Iupred2a','Common proteins', 'Only by Aiupred']
+
+fig,ax=plt.subplots()
+
+bars = ax.bar(categories, proteins, color=['blue','orange','green'])
+ax.bar_label(bars, padding=3)
+ax.margins(y=0.2)
 plt.title('Three categories of proteins with disordered regions\n found by Iupred2a vs Aiupred')
 plt.xticks(rotation=0)
 plt.ylabel('Number of proteins')
-plt.savefig("/home/guest/Internship/results/10_barplot_number_common_found_proteins.png", dpi=300, bbox_inches="tight")
+plt.savefig("/home/guest/Internship/results/10_barplot_common_found_proteins.png", dpi=300, bbox_inches="tight")
 plt.show()
