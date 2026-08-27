@@ -1,0 +1,16 @@
+Required files for the analysis:
+go-basic.obo
+HUMAN-uniprot.gaf
+Interproscan_Gene3D folder: we used only the UP000005640_9606.fasta.tsv file
+	UP000005640_9606.fasta.gff3
+	UP000005640_9606.fasta.json
+	UP000005640_9606.fasta.jsonl
+	UP000005640_9606.fasta.tsv
+	UP000005640_9606.fasta.xml
+Interproscan_Pfam folder: we used only the UP000005640_9606.fasta.tsv file
+	UP000005640_9606.fasta.gff3
+	UP000005640_9606.fasta.json
+	UP000005640_9606.fasta.jsonl
+	UP000005640_9606.fasta.tsv
+	UP000005640_9606.fasta.xml
+Human proteome from Uniprot: UP000005640_9606.fasta
