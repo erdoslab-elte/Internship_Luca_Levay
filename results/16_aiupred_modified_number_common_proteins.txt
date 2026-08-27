@@ -1,0 +1,4 @@
+Three categories of found proteins by Iupred2a and Aiupred with the modified cut-off value
+Number of proteins found only by Iupred2a: 1137
+Number of proteins found only by modified Aiupred: 2715
+Number of common proteins found both with Iupred2a and modified Aiupred: 4425
