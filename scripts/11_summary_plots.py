@@ -1,4 +1,4 @@
-#Creating histograms
+#Creating Barplots to summarize and compare some performance metrics of IUPRed2a and AIUPred
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -49,35 +49,33 @@ numb_proteins_aiup=len(filtered_proteins_aiup)
 regions= [numb_disord_regions_iupred,numb_disord_regions_aiupred]
 tools=['Iupred2a','Aiupred']
 
-plt.bar(tools,regions)
+fig,ax=plt.subplots()
+
+bars = ax.bar(tools, regions)
+ax.bar_label(bars, padding=3)
+ax.margins(y=0.2)
+#plt.bar(tools,regions)
 plt.title('Number of predicted disordered regions Iupred2a vs Aiupred')
-plt.xlabel('Tools')
+plt.xticks(rotation=0)
 plt.ylabel('Number of regions')
-plt.savefig("/home/guest/Internship/results/11_barplot_number_disordered_regions.png", dpi=300, bbox_inches="tight")
+plt.savefig("/home/guest/Internship/results/11_barplot_disordered_regions.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 #How many proteins are found by Iupred2a vs Aiupred
 proteins= [numb_proteins_iup,numb_proteins_aiup]
 tools=['Iupred2a','Aiupred']
 
-plt.bar(tools,proteins)
+fig,ax=plt.subplots()
+
+bars = ax.bar(tools, proteins)
+ax.bar_label(bars, padding=3)
+ax.margins(y=0.2)
+#plt.bar(tools,proteins)
 plt.title('Number of proteins with disordered regions\n predicted by Iupred2a vs Aiupred')
-plt.xlabel('Tools')
+plt.xticks(rotation=0)
 plt.ylabel('Number of proteins')
-plt.savefig("/home/guest/Internship/results/11_barplot_number_proteins_with_disordered_regions.png", dpi=300, bbox_inches="tight")
+plt.savefig("/home/guest/Internship/results/11_barplot_proteins_with_disordered_regions.png", dpi=300, bbox_inches="tight")
 plt.show()
-
-#Region length distribution of them: already created within the 01_script
-
-# #Pfam vs Gene3D annotated domains/regions?
-# annotations= [pfam_annotated_domains,gene3d_annotated_domains]
-# databases=['Pfam','Gene3D']
-
-# plt.bar(databases,annotations)
-# plt.title('Number of annotated domains/regions by Pfam vs Gene3D')
-# plt.xlabel('Databases')
-# plt.ylabel('Number of annotated domains/regions')
-# plt.show()
 
 #Pfam: How many overlapping regions: more than 50% vs less than 50% Iupred vs Aiupred
 df= pd.DataFrame({
@@ -89,7 +87,7 @@ df.plot(kind='bar')
 plt.title('Number of overlapping regions by Pfam')
 plt.xticks(rotation=0)
 plt.ylabel('Number of overlapping regions')
-plt.savefig("/home/guest/Internship/results/11_barplot_pfam_number_overlapping_regions.png", dpi=500)
+plt.savefig("/home/guest/Internship/results/11_barplot_pfam_overlapping_regions.png", dpi=500)
 plt.show()
 
 #Gene3D:How many overlapping regions: more than 50% vs less than 50% Iupred vs Aiupred
@@ -102,22 +100,11 @@ df.plot(kind='bar')
 plt.title('Number of overlapping regions by Gene3D')
 plt.xticks(rotation=0)
 plt.ylabel('Number of overlapping regions')
-plt.savefig("/home/guest/Internship/results/11_barplot_gene3d_number_overlapping_regions.png", dpi=500)
+plt.savefig("/home/guest/Internship/results/11_barplot_gene3d_overlapping_regions.png", dpi=500)
 plt.show()
 
-#Pfam vs Gene3D: how many overlapping regions more than 50% Aiupred vs Iupred
 
-# data= pd.DataFrame({
-#     'Pfam': [scr04_pfam_iupred_above_50,scr04_pfam_aiupred_above_50],
-#     'Gene3D': [scr05_gene3d_iupred_above_50,scr05_gene3d_aiupred_above_50]
-# }, index=['Iupred2a','Aiupred'])
-
-# data.plot(kind='bar')
-# plt.title('Regions that overlaps more than 50%')
-# plt.ylabel('Number of overlapping regions above 50%')
-# plt.show()
-
-#Pfam vs Gene3D:How many found domains by Aiupred vs Iupred
+#Pfam vs Gene3D:How many found annotated domains by Aiupred vs Iupred
 domains= pd.DataFrame({
     'Iupred2a': [scr08_pfam_domains_iupred,scr08_gene3d_domains_iupred],
     'Aiupred': [scr08_pfam_domains_aiupred,scr08_gene3d_domains_aiupred]
@@ -127,7 +114,7 @@ domains.plot(kind='bar')
 plt.title('Annotated domains overlapping with disordered regions\n predicted by Iupred2a and Aiupred')
 plt.xticks(rotation=0)
 plt.ylabel('Number of found domains')
-plt.savefig("/home/guest/Internship/results/11_barplot_number_annotated_domains.png", dpi=500)
+plt.savefig("/home/guest/Internship/results/11_barplot_annotated_domains.png", dpi=500)
 plt.show()
 
 #Pfam vs Gene3D: How many found proteins by Aiupred vs Iupred
@@ -140,5 +127,5 @@ proteins.plot(kind='bar')
 plt.title('Annotated proteins with regions overlapping with disordered regions\n predicted by Iupred2a and Aiupred')
 plt.xticks(rotation=0)
 plt.ylabel('Number of found proteins')
-plt.savefig("/home/guest/Internship/results/11_barplot_number_annotated_proteins.png", dpi=500)
+plt.savefig("/home/guest/Internship/results/11_barplot_annotated_proteins.png", dpi=500)
 plt.show()
