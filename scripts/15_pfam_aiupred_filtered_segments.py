@@ -2,7 +2,6 @@
 #which have a predicted score above 0.5
 
 import pandas as pd
-import ast
 
 #Read in the tsv file:
 tsv_file=pd.read_csv("/home/guest/Internship/results/Interproscan_Pfam/14_pfam_aiupred_segments_predicted_scores.tsv",sep='\t')
